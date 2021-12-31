@@ -33,6 +33,24 @@ startGame()
 
 restartButton.addEventListener('click', startGame)
 
+function handleClick(e) {
+    const cell = e.target
+    // currentClass = if it's circles turn return CIRCLE_CLASS otherwise return X_CLASS
+    const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS 
+    // placeMark
+    placeMark(cell, currentClass)
+    // Check for Win
+    if (checkWin(currentClass)) {
+        endGame(false)
+    } else if (isDraw()){
+        endGame(true)
+    } else {
+        //Switch Turns
+        swapTurns()
+        setBoardHoverClass()
+    }
+}
+
 function placeMark(cell, currentClass) {
     cell.classList.add(currentClass) 
 }
@@ -79,20 +97,4 @@ function endGame(draw) {
     winningMessageElement.classList.add('show')
 }
 
-function handleClick(e) {
-    const cell = e.target
-    // currentClass = if it's circles turn return CIRCLE_CLASS otherwise return X_CLASS
-    const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS 
-    // placeMark
-    placeMark(cell, currentClass)
-    // Check for Win
-    if (checkWin(currentClass)) {
-        endGame(false)
-    } else if (isDraw()){
-        endGame(true)
-    } else {
-        //Switch Turns
-        swapTurns()
-        setBoardHoverClass()
-    }
-}
+
